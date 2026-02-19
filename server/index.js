@@ -16,6 +16,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json({ limit: '10mb' }));
 
+// Health check for Render
+app.get('/health', (req, res) => res.send('Server is healthy'));
+
 app.get('/api/questions/:grade', (req, res) => {
     const { grade } = req.params;
     let qBank = [];
