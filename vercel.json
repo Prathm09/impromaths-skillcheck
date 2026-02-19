@@ -1,8 +1,6 @@
 {
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/client/$1"
-        }
-    ]
+    "framework": "nextjs",
+    "buildCommand": "cd client && npm run build",
+    "outputDirectory": "client/.next",
+    "installCommand": "cd client && npm install"
 }
