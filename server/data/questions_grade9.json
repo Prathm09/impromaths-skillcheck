@@ -1,0 +1,242 @@
+[
+    {
+        "id": 1,
+        "topic": "Algebra",
+        "question": "Solve the simultaneous equations: 3x + 2y = 12 and x - y = 4",
+        "options": [
+            "x = 4, y = 0",
+            "x = 3, y = 1",
+            "x = 5, y = -1",
+            "x = 2, y = 3"
+        ],
+        "answer": "x = 4, y = 0"
+    },
+    {
+        "id": 2,
+        "topic": "Trigonometry",
+        "question": "In a right-angled triangle, the hypotenuse is 10cm and the opposite side is 6cm. What is the value of sin(theta)?",
+        "options": [
+            "0.6",
+            "0.8",
+            "0.75",
+            "1.66"
+        ],
+        "answer": "0.6"
+    },
+    {
+        "id": 3,
+        "topic": "Sequences",
+        "question": "Find the nth term of the sequence: 5, 8, 11, 14...",
+        "options": [
+            "3n + 2",
+            "3n + 5",
+            "2n + 3",
+            "n + 4"
+        ],
+        "answer": "3n + 2"
+    },
+    {
+        "id": 4,
+        "topic": "Quadratics",
+        "question": "Factorize x² - 5x + 6",
+        "options": [
+            "(x - 2)(x - 3)",
+            "(x + 2)(x + 3)",
+            "(x - 1)(x - 6)",
+            "(x - 5)(x + 1)"
+        ],
+        "answer": "(x - 2)(x - 3)"
+    },
+    {
+        "id": 5,
+        "topic": "Geometry",
+        "question": "The interior angles of a regular polygon sum to 1080 degrees. How many sides does it have?",
+        "options": [
+            "8",
+            "6",
+            "10",
+            "12"
+        ],
+        "answer": "8"
+    },
+    {
+        "id": 6,
+        "topic": "Probability",
+        "question": "A bag contains 5 red and 3 blue balls. Two balls are picked without replacement. What is the probability both are red?",
+        "options": [
+            "5/14",
+            "25/64",
+            "10/28",
+            "5/28"
+        ],
+        "answer": "5/14"
+    },
+    {
+        "id": 7,
+        "topic": "Indices",
+        "question": "Simplify: (8x^6)^(1/3)",
+        "options": [
+            "2x²",
+            "2x³",
+            "4x²",
+            "2.6x²"
+        ],
+        "answer": "2x²"
+    },
+    {
+        "id": 8,
+        "topic": "Graphs",
+        "question": "What is the gradient of the line perpendicular to y = 2x + 5?",
+        "options": [
+            "-0.5",
+            "0.5",
+            "-2",
+            "2"
+        ],
+        "answer": "-0.5"
+    },
+    {
+        "id": 9,
+        "topic": "Sets",
+        "question": "If A = {1, 2, 3} and B = {3, 4, 5}, what is the intersection of A and B?",
+        "options": [
+            "{3}",
+            "{1, 2, 3, 4, 5}",
+            "{1, 2}",
+            "Empty Set"
+        ],
+        "answer": "{3}"
+    },
+    {
+        "id": 10,
+        "topic": "Standard Form",
+        "question": "Write 0.000045 in standard form.",
+        "options": [
+            "4.5 x 10^-5",
+            "4.5 x 10^-4",
+            "45 x 10^-6",
+            "4.5 x 10^5"
+        ],
+        "answer": "4.5 x 10^-5"
+    },
+    {
+        "id": 11,
+        "topic": "Inequalities",
+        "question": "Solve: 3x - 4 > 2",
+        "options": [
+            "x > 2",
+            "x < 2",
+            "x >= 2",
+            "x > 1"
+        ],
+        "answer": "x > 2"
+    },
+    {
+        "id": 12,
+        "topic": "Compound Interest",
+        "question": "Calculate total value of $500 invested for 2 years at 5% compound interest.",
+        "options": [
+            "$551.25",
+            "$550.00",
+            "$525.00",
+            "$525.25"
+        ],
+        "answer": "$551.25"
+    },
+    {
+        "id": 13,
+        "topic": "Circle Theorems",
+        "question": "The angle in a semi-circle is always:",
+        "options": [
+            "90 degrees",
+            "180 degrees",
+            "45 degrees",
+            "Variable"
+        ],
+        "answer": "90 degrees"
+    },
+    {
+        "id": 14,
+        "topic": "Similar Shapes",
+        "question": "Two triangles are similar. The ratio of their sides is 1:3. What is the ratio of their areas?",
+        "options": [
+            "1:9",
+            "1:3",
+            "1:6",
+            "1:27"
+        ],
+        "answer": "1:9"
+    },
+    {
+        "id": 15,
+        "topic": "Mensuration",
+        "question": "Calculate the volume of a cylinder with radius 3cm and height 10cm (take pi = 3.14).",
+        "options": [
+            "282.6 cm³",
+            "94.2 cm³",
+            "188.4 cm³",
+            "314 cm³"
+        ],
+        "answer": "282.6 cm³"
+    },
+    {
+        "id": 16,
+        "topic": "Rearranging Formulae",
+        "question": "Make x the subject of y = 3x - 4",
+        "options": [
+            "x = (y + 4)/3",
+            "x = (y - 4)/3",
+            "x = 3y + 4",
+            "x = y/3 + 4"
+        ],
+        "answer": "x = (y + 4)/3"
+    },
+    {
+        "id": 17,
+        "topic": "Functions",
+        "question": "If f(x) = 2x + 1, find f(5).",
+        "options": [
+            "11",
+            "10",
+            "9",
+            "12"
+        ],
+        "answer": "11"
+    },
+    {
+        "id": 18,
+        "topic": "Vectors",
+        "question": "Vector a = (3, 2) and b = (-1, 4). Find a + b.",
+        "options": [
+            "(2, 6)",
+            "(4, -2)",
+            "(2, 2)",
+            "(-3, 8)"
+        ],
+        "answer": "(2, 6)"
+    },
+    {
+        "id": 19,
+        "topic": "Statistics",
+        "question": "Find the median of the set: 2, 5, 8, 10, 12, 15",
+        "options": [
+            "9",
+            "8",
+            "10",
+            "8.5"
+        ],
+        "answer": "9"
+    },
+    {
+        "id": 20,
+        "topic": "Simultaneous Equations",
+        "question": "Solve: 2x + y = 7 and 3x - y = 8",
+        "options": [
+            "x = 3, y = 1",
+            "x = 2, y = 3",
+            "x = 4, y = -1",
+            "x = 1, y = 5"
+        ],
+        "answer": "x = 3, y = 1"
+    }
+]
