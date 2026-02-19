@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { APP_CONFIG } from "../config";
+import { APP_CONFIG } from "@/config";
 
 interface Question {
     id: number;

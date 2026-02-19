@@ -1,4 +1,4 @@
-import DiagnosticTest from "../components/DiagnosticTest";
+import DiagnosticTest from "@/components/DiagnosticTest";
 
 export default function Home() {
   return (
