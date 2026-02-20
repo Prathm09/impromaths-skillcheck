@@ -13,7 +13,9 @@ import {
     Clock,
     Target,
     TrendingUp,
-    AlertCircle
+    AlertCircle,
+    User,
+    MessageCircle
 } from "lucide-react";
 import axios from "axios";
 import { jsPDF } from "jspdf";
@@ -58,7 +60,6 @@ export default function DiagnosticTest() {
     const [answers, setAnswers] = useState<Record<number, string>>({});
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState<Results | null>(null);
-    const [sendingEmail, setSendingEmail] = useState(false);
     const [timer, setTimer] = useState(0);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -159,10 +160,11 @@ export default function DiagnosticTest() {
             const badgeText = score >= 8 ? "Green" : score >= 5 ? "Orange" : "Red";
 
             const message = category === "Expert"
-                ? `Fantastic work! Keep up the great momentum with ImproMaths and take your skills even further. We're here to support your success—reach out to us at ${APP_CONFIG.TEACHER_PHONE}!`
+                ? `Close your eyes for a moment and truly visualize yourself achieving absolute mathematical mastery. You have just demonstrated an extraordinary level of skill and a deep, intuitive understanding of numbers. As you look at these results, notice the feeling of certainty and pride expanding within you. This is not just a score; it is a clear reflection of your immense potential and sharp intellect. Imagine how much further you can go when you unlock every hidden capability of your mind. You possess a rare brilliance, and right now, you are standing on the precipice of greatness. The only question now is: how extraordinary do you want your future to be? To harness this momentum, refine your elite skills, and build a lasting legacy of success, take action right now. Contact ImproMaths immediately at ${APP_CONFIG.TEACHER_PHONE}. Let us guide you to the absolute pinnacle of academic excellence!`
                 : category === "Average"
-                    ? `Well done! Unlock your full potential with ImproMaths. Reach out to us at ${APP_CONFIG.TEACHER_PHONE} – we're here to help you succeed!`
-                    : `Don't worry! Every great journey starts with a first step. At ImproMaths, we’ll help you strengthen your skills and build confidence. Reach out to us at ${APP_CONFIG.TEACHER_PHONE} – your path to improvement begins today!`;
+                    ? `Take a deep breath and acknowledge the incredible effort you have just put in. You are standing right at the threshold of a massive breakthrough. Every correct answer here is undeniable proof of the vast, untapped reservoir of intelligence waiting to be fully awakened within you. As you review your performance, notice how the areas for improvement are simply exciting opportunities for rapid growth. Visualize yourself easily understanding complex concepts, feeling a surge of confidence with every new problem you solve. You already have the strong foundation needed; now it is time to build your masterpiece. Imagine the pride you will feel as those minor doubts turn into absolute certainties. Your transformation into a highly confident mathematical achiever is closer than you think. Take the deciding step today. Contact ImproMaths immediately at ${APP_CONFIG.TEACHER_PHONE}—your path to absolute mastery begins with this single action!`
+                    : `Right now, in this very moment, you are taking the most powerful and important step of your journey—the step of discovery. Every master, every genius, was once exactly where you are today. As you look at your results, realize that these numbers do not define your limits; they merely show you exactly where your incredible journey of growth begins. Notice that spark of curiosity and determination within you. Imagine what it will feel like when the confusion lifts, replaced by a radiant, rock-solid confidence. You possess an inner strength and a profound capacity to learn that you haven't even fully tapped into yet. The fact that you took this test proves you have the courage to grow. Now, imagine having the perfect guidance to unlock your true potential, turning every challenge into a remarkable triumph. You don't have to do this alone. Reach out and take control of your future right now. Contact ImproMaths immediately at ${APP_CONFIG.TEACHER_PHONE}—let’s start building your incredible success story together, today!`;
+
 
             const newResults = {
                 score,
@@ -184,6 +186,9 @@ export default function DiagnosticTest() {
 
             // AUTO-REPORT: Automatically send PDF to student and Ma'am via Email
             autoSendEmail(newResults);
+
+            // AUTO-WHATSAPP: Automatically trigger PDF sharing with Ma'am
+            handleSharePDF(newResults);
         }, 1500); // Artificial delay for "loading animation"
     };
 
@@ -225,12 +230,13 @@ export default function DiagnosticTest() {
         window.open(whatsappUrl, '_blank');
     };
 
-    const handleSharePDF = async () => {
-        const doc = await generatePDF();
+    const handleSharePDF = async (customResults?: Results) => {
+        const doc = await generatePDF(customResults);
         if (!doc) return;
 
         const pdfBlob = doc.output('blob');
-        const filename = `${APP_CONFIG.APP_NAME.replace(/\s+/g, '_')}_Report_${formData.name.replace(/\s+/g, '_')}.pdf`;
+        const studentName = formData.name || "Student";
+        const filename = `${APP_CONFIG.APP_NAME.replace(/\s+/g, '_')}_Report_${studentName.replace(/\s+/g, '_')}.pdf`;
         const file = new File([pdfBlob], filename, { type: 'application/pdf' });
 
         const shareData = {
@@ -245,14 +251,14 @@ export default function DiagnosticTest() {
             } catch (err) {
                 if ((err as Error).name !== 'AbortError') {
                     handleDownload();
-                    window.open(`https://wa.me/${APP_CONFIG.TEACHER_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(shareData.text)}`, '_blank');
+                    const waUrl = `https://wa.me/${APP_CONFIG.TEACHER_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(shareData.text)}`;
+                    window.open(waUrl, '_blank');
                 }
             }
         } else {
             handleDownload();
             const waUrl = `https://wa.me/${APP_CONFIG.TEACHER_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(shareData.text)}`;
             window.open(waUrl, '_blank');
-            alert("Report Downloaded! Opening WhatsApp chat with Ma'am... Please attach the PDF you just downloaded to the chat.");
         }
     };
 
@@ -328,27 +334,6 @@ export default function DiagnosticTest() {
         if (!results) return;
         const doc = await generatePDF();
         if (doc) doc.save(`${APP_CONFIG.APP_NAME.replace(/\s+/g, '_')}_Report_${formData.name.replace(/\s+/g, '_')}.pdf`);
-    };
-
-    const handleEmail = async () => {
-        if (!results) return;
-        setSendingEmail(true);
-        try {
-            const doc = await generatePDF();
-            if (!doc) throw new Error("PDF generation failed");
-            const pdfBase64 = doc.output("datauristring").split(",")[1];
-
-            await axios.post(`${APP_CONFIG.API_BASE_URL}/api/send-report`, {
-                email: formData.email,
-                name: formData.name,
-                pdfBase64
-            });
-            alert("Report emailed successfully to you and ImproMaths!");
-        } catch {
-            alert("Failed to send email. Please check your network or try again.");
-        } finally {
-            setSendingEmail(false);
-        }
     };
 
     return (
@@ -586,107 +571,97 @@ export default function DiagnosticTest() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="text-center space-y-6">
-                                                <motion.div
-                                                    className={`mx-auto w-28 h-28 ${results?.badgeColor} rounded-[2rem] flex items-center justify-center text-white shadow-2xl relative`}
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ duration: 0.5 }}
-                                                >
-                                                    <Award size={56} />
-                                                    <div className="absolute -bottom-2 bg-white px-4 py-1 rounded-full shadow-md">
-                                                        <span className={`text-[10px] font-black uppercase tracking-widest ${results?.badgeColor?.replace('bg-', 'text-')}`}>
-                                                            {results?.badgeText} Badge
-                                                        </span>
+                                            {/* Results Header with Avatar */}
+                                            <div className="text-center space-y-4">
+                                                <div className="relative mx-auto w-24 h-24 mb-6">
+                                                    <div className="absolute inset-0 bg-orange-500 rounded-3xl transform rotate-6 scale-95 opacity-20"></div>
+                                                    <div className="relative w-24 h-24 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center shadow-xl overflow-hidden">
+                                                        <User size={48} className="text-white relative z-10" />
+                                                        <div className="absolute bottom-0 w-full h-1/3 bg-white/20"></div>
                                                     </div>
-                                                </motion.div>
-                                                <div className="space-y-2">
-                                                    <h2 className="text-4xl font-black text-gray-900">{results?.category}</h2>
-                                                    <div className="flex items-center justify-center space-x-3">
-                                                        <span className="text-2xl font-bold text-cyan-600">{results?.score} / {results?.total}</span>
-                                                        <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                                        <span className="text-gray-400 font-medium">Accuracy: {Math.round((results?.score / results?.total) * 100)}%</span>
+                                                </div>
+
+                                                <div className="space-y-1">
+                                                    <h2 className="text-4xl font-black text-gray-900 tracking-tight">{results.category}</h2>
+                                                    <div className="flex items-center justify-center space-x-3 text-lg">
+                                                        <span className="font-extrabold text-cyan-500">{results.score} / {results.total}</span>
+                                                        <span className="text-gray-300">•</span>
+                                                        <span className="text-gray-400 font-bold">Accuracy: {Math.round((results.score / results.total) * 100)}%</span>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 space-y-6">
+                                            {/* Motivational Feedback Block */}
+                                            <div className="bg-gray-50/80 rounded-[2.5rem] p-8 md:p-10 border border-gray-100 space-y-6">
                                                 <div className="flex items-center space-x-3">
-                                                    <div className="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">
-                                                        <TrendingUp size={18} className="text-cyan-600" />
+                                                    <div className="w-10 h-10 bg-cyan-100/50 rounded-xl flex items-center justify-center">
+                                                        <TrendingUp size={20} className="text-cyan-600" />
                                                     </div>
-                                                    <h4 className="font-black text-gray-800 uppercase tracking-widest text-sm">Motivational Feedback</h4>
+                                                    <h4 className="font-black text-gray-400 uppercase tracking-[0.2em] text-[10px]">Motivational Feedback</h4>
                                                 </div>
-                                                <p className="text-gray-700 leading-relaxed font-semibold italic text-lg">
-                                                    &ldquo;{results?.message}&rdquo;
+                                                <p className="text-gray-700 leading-relaxed font-bold italic text-lg md:text-xl md:px-4">
+                                                    &ldquo;{results.message}&rdquo;
                                                 </p>
                                             </div>
 
+                                            {/* Strengths & Weaknesses Grid */}
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                <div className="p-6 bg-green-50 rounded-3xl border border-green-100 space-y-4">
-                                                    <div className="flex items-center space-x-2 text-green-700">
-                                                        <CheckCircle size={18} />
-                                                        <span className="font-black uppercase tracking-widest text-xs">Top Strengths</span>
+                                                <div className="p-8 bg-green-50/50 rounded-[2.5rem] border border-green-100 space-y-6">
+                                                    <div className="flex items-center space-x-3 text-green-700">
+                                                        <CheckCircle size={20} />
+                                                        <span className="font-black uppercase tracking-[0.15em] text-[10px]">Top Strengths</span>
                                                     </div>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {results?.strengths?.length > 0 ? results.strengths.map((s) => (
-                                                            <span key={s} className="bg-white px-3 py-1 rounded-full text-[11px] font-bold text-green-600 shadow-sm">{s}</span>
-                                                        )) : <span className="text-xs text-green-600">Keep practicing!</span>}
-                                                    </div>
-                                                </div>
-                                                <div className="p-6 bg-red-50 rounded-3xl border border-red-100 space-y-4">
-                                                    <div className="flex items-center space-x-2 text-red-700">
-                                                        <AlertCircle size={18} />
-                                                        <span className="font-black uppercase tracking-widest text-xs">Improvement Areas</span>
-                                                    </div>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {results?.weaknesses?.length > 0 ? results.weaknesses.map((s) => (
-                                                            <span key={s} className="bg-white px-3 py-1 rounded-full text-[11px] font-bold text-red-600 shadow-sm">{s}</span>
-                                                        )) : <span className="text-xs text-red-600">Great overall performance!</span>}
+                                                    <div className="flex flex-wrap gap-2.5">
+                                                        {results.strengths.length > 0 ? results.strengths.map((s) => (
+                                                            <span key={s} className="bg-white px-4 py-2 rounded-full text-[11px] font-black text-green-600 shadow-sm border border-green-50">{s}</span>
+                                                        )) : <span className="text-xs text-green-600 font-bold">Keep growing!</span>}
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div className="flex flex-col gap-4">
-                                                <div className="flex flex-col sm:flex-row items-center gap-4">
-                                                    <button
-                                                        onClick={handleDownload}
-                                                        className="w-full flex items-center justify-center space-x-3 bg-white border-2 border-cyan-500 text-cyan-600 font-black py-5 rounded-2xl hover:bg-cyan-50 transition-all active:scale-95"
-                                                    >
-                                                        <Download size={22} />
-                                                        <span>Download PDF</span>
-                                                    </button>
-                                                    <button
-                                                        onClick={handleEmail}
-                                                        disabled={sendingEmail}
-                                                        className="w-full flex items-center justify-center space-x-3 bg-white border-2 border-indigo-500 text-indigo-600 font-black py-5 rounded-2xl hover:bg-indigo-50 transition-all active:scale-95 disabled:opacity-50"
-                                                    >
-                                                        {sendingEmail ? <Loader2 className="animate-spin" /> : <Mail size={22} />}
-                                                        <span>Email Report</span>
-                                                    </button>
-                                                </div>
-
-                                                <div className="flex flex-col sm:flex-row items-center gap-4">
-                                                    <button
-                                                        onClick={() => handleWhatsAppShare('student')}
-                                                        disabled={!formData.phone}
-                                                        className="w-full flex items-center justify-center space-x-3 bg-green-500 text-white font-black py-5 rounded-2xl hover:bg-green-600 shadow-xl shadow-green-100 transition-all active:scale-95 disabled:opacity-30"
-                                                    >
-                                                        <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.67-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.411.001 12.045a11.871 11.871 0 001.594 5.92L0 24l6.18-1.622a11.816 11.816 0 005.867 1.556h.005c6.635 0 12.045-5.411 12.048-12.045a11.758 11.758 0 00-3.468-8.423z" /></svg>
-                                                        <span>Share to My WhatsApp</span>
-                                                    </button>
-                                                    <button
-                                                        onClick={handleSharePDF}
-                                                        className="w-full flex items-center justify-center space-x-3 bg-[#00BCD4] text-white font-black py-5 rounded-2xl hover:bg-[#00ACC1] shadow-xl shadow-cyan-100 transition-all active:scale-95"
-                                                    >
-                                                        <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.67-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.411.001 12.045a11.871 11.871 0 001.594 5.92L0 24l6.18-1.622a11.816 11.816 0 005.867 1.556h.005c6.635 0 12.045-5.411 12.048-12.045a11.758 11.758 0 00-3.468-8.423z" /></svg>
-                                                        <span>Share PDF to Ma'am</span>
-                                                    </button>
+                                                <div className="p-8 bg-red-50/50 rounded-[2.5rem] border border-red-100 space-y-6">
+                                                    <div className="flex items-center space-x-3 text-red-700">
+                                                        <AlertCircle size={20} />
+                                                        <span className="font-black uppercase tracking-[0.15em] text-[10px]">Improvement Areas</span>
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-2.5">
+                                                        {results.weaknesses.length > 0 ? results.weaknesses.map((s) => (
+                                                            <span key={s} className="bg-white px-4 py-2 rounded-full text-[11px] font-black text-red-600 shadow-sm border border-red-50">{s}</span>
+                                                        )) : <span className="text-xs text-red-700 font-bold">Excellent work!</span>}
+                                                    </div>
                                                 </div>
                                             </div>
 
+                                            {/* Action Buttons Grid (3 Columns) */}
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                <button
+                                                    onClick={handleDownload}
+                                                    className="flex items-center justify-center space-x-3 bg-white border-2 border-cyan-500 text-cyan-600 font-black py-5 rounded-3xl hover:bg-cyan-50 transition-all active:scale-95 shadow-lg shadow-cyan-50/50"
+                                                >
+                                                    <Download size={22} />
+                                                    <span>Download PDF</span>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => handleWhatsAppShare('student')}
+                                                    disabled={!formData.phone}
+                                                    className="flex items-center justify-center space-x-3 bg-[#25D366] text-white font-black py-5 rounded-3xl hover:bg-[#22c35e] transition-all active:scale-95 shadow-lg shadow-green-100 disabled:opacity-30"
+                                                >
+                                                    <MessageCircle size={22} />
+                                                    <span>Share to My WhatsApp</span>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => handleSharePDF()}
+                                                    className="flex items-center justify-center space-x-3 bg-[#00BCD4] text-white font-black py-5 rounded-3xl hover:bg-[#00ACC1] transition-all active:scale-95 shadow-lg shadow-cyan-100"
+                                                >
+                                                    <MessageCircle size={22} />
+                                                    <span>Share PDF to Ma'am</span>
+                                                </button>
+                                            </div>
+
+                                            {/* Footer Action */}
                                             <button
                                                 onClick={() => { setStep(1); setAnswers({}); setCurrentQuestionIndex(0); setTimer(0); }}
-                                                className="flex items-center justify-center space-x-2 mx-auto text-gray-400 hover:text-cyan-600 font-black uppercase tracking-widest text-xs transition-all pt-4"
+                                                className="flex items-center justify-center space-x-2 mx-auto text-gray-400 hover:text-cyan-600 font-black uppercase tracking-[0.2em] text-[10px] transition-all pt-8"
                                             >
                                                 <RefreshCcw size={16} />
                                                 <span>Take Test Again</span>
