@@ -1,0 +1,242 @@
+[
+    {
+        "id": 1,
+        "topic": "Calculus",
+        "question": "Find the derivative (dy/dx) of y = 3x² + 5x - 2",
+        "options": [
+            "6x + 5",
+            "3x + 5",
+            "6x - 2",
+            "x² + x"
+        ],
+        "answer": "6x + 5"
+    },
+    {
+        "id": 2,
+        "topic": "Trigonometry",
+        "question": "Solve sin(x) = 0.5 for 0 < x < 90",
+        "options": [
+            "30 degrees",
+            "45 degrees",
+            "60 degrees",
+            "90 degrees"
+        ],
+        "answer": "30 degrees"
+    },
+    {
+        "id": 3,
+        "topic": "Advanced Algebra",
+        "question": "Solve the quadratic equation x² - x - 6 = 0 using the formula or factorizing.",
+        "options": [
+            "x = 3 or x = -2",
+            "x = -3 or x = 2",
+            "x = 6 or x = -1",
+            "x = 1 or x = 6"
+        ],
+        "answer": "x = 3 or x = -2"
+    },
+    {
+        "id": 4,
+        "topic": "Vectors",
+        "question": "Find the magnitude of the vector (3, 4).",
+        "options": [
+            "5",
+            "7",
+            "25",
+            "12"
+        ],
+        "answer": "5"
+    },
+    {
+        "id": 5,
+        "topic": "Probability",
+        "question": "P(A) = 0.4, P(B) = 0.5. If A and B are independent, find P(A and B).",
+        "options": [
+            "0.2",
+            "0.9",
+            "0.1",
+            "0.45"
+        ],
+        "answer": "0.2"
+    },
+    {
+        "id": 6,
+        "topic": "Functions",
+        "question": "If f(x) = x + 3 and g(x) = 2x, find the composite function fg(x).",
+        "options": [
+            "2x + 3",
+            "2x + 6",
+            "x + 6",
+            "3x"
+        ],
+        "answer": "2x + 3"
+    },
+    {
+        "id": 7,
+        "topic": "Logarithms",
+        "question": "Evaluate: log2(16)",
+        "options": [
+            "4",
+            "8",
+            "2",
+            "32"
+        ],
+        "answer": "4"
+    },
+    {
+        "id": 8,
+        "topic": "Mensuration",
+        "question": "A sphere has a radius of 3cm. Calculate its surface area (Surface Area = 4*pi*r², take pi = 3).",
+        "options": [
+            "108 cm²",
+            "36 cm²",
+            "54 cm²",
+            "27 cm²"
+        ],
+        "answer": "108 cm²"
+    },
+    {
+        "id": 9,
+        "topic": "Transformation Geometry",
+        "question": "A point (2, 3) is reflected in the x-axis. What are its new coordinates?",
+        "options": [
+            "(2, -3)",
+            "(-2, 3)",
+            "(-2, -3)",
+            "(3, 2)"
+        ],
+        "answer": "(2, -3)"
+    },
+    {
+        "id": 10,
+        "topic": "Sequences",
+        "question": "Find the next term in the geometric sequence: 2, 6, 18, 54...",
+        "options": [
+            "162",
+            "108",
+            "72",
+            "216"
+        ],
+        "answer": "162"
+    },
+    {
+        "id": 11,
+        "topic": "Calculus",
+        "question": "Find the coordinates of the stationary point on y = x² - 4x + 7",
+        "options": [
+            "(2, 3)",
+            "(2, 7)",
+            "(4, 7)",
+            "(0, 7)"
+        ],
+        "answer": "(2, 3)"
+    },
+    {
+        "id": 12,
+        "topic": "Advanced Graphs",
+        "question": "The turning point of y = (x - 3)² + 2 is:",
+        "options": [
+            "(3, 2)",
+            "(-3, 2)",
+            "(3, -2)",
+            "(2, 3)"
+        ],
+        "answer": "(3, 2)"
+    },
+    {
+        "id": 13,
+        "topic": "Set Theory",
+        "question": "Number of subsets in a set with 4 elements is:",
+        "options": [
+            "16",
+            "8",
+            "4",
+            "32"
+        ],
+        "answer": "16"
+    },
+    {
+        "id": 14,
+        "topic": "Indices",
+        "question": "Simplify: 125^(-1/3)",
+        "options": [
+            "1/5",
+            "5",
+            "-5",
+            "1/25"
+        ],
+        "answer": "1/5"
+    },
+    {
+        "id": 15,
+        "topic": "Trigonometry",
+        "question": "Find the area of a triangle with sides 5cm, 8cm and included angle 30 degrees (Area = 0.5*a*b*sinC).",
+        "options": [
+            "10 cm²",
+            "20 cm²",
+            "15 cm²",
+            "5 cm²"
+        ],
+        "answer": "10 cm²"
+    },
+    {
+        "id": 16,
+        "topic": "Vector Geometry",
+        "question": "If vector AB = 2i + 3j and BC = i - 2j, find vector AC.",
+        "options": [
+            "3i + j",
+            "i + 5j",
+            "3i + 5j",
+            "i + j"
+        ],
+        "answer": "3i + j"
+    },
+    {
+        "id": 17,
+        "topic": "Advanced Mensuration",
+        "question": "Ratio of volumes of two spheres with radius ratio 1:2 is:",
+        "options": [
+            "1:8",
+            "1:2",
+            "1:4",
+            "1:16"
+        ],
+        "answer": "1:8"
+    },
+    {
+        "id": 18,
+        "topic": "Functions",
+        "question": "If f(x) = 3x - 2, find the inverse function f^-1(x).",
+        "options": [
+            "(x + 2)/3",
+            "(x - 3)/2",
+            "3x + 2",
+            "x/3 + 2"
+        ],
+        "answer": "(x + 2)/3"
+    },
+    {
+        "id": 19,
+        "topic": "Circle Theorems",
+        "question": "The angle at the center of a circle is _____ the angle at the circumference.",
+        "options": [
+            "double",
+            "half",
+            "equal to",
+            "triple"
+        ],
+        "answer": "double"
+    },
+    {
+        "id": 20,
+        "topic": "Calculus",
+        "question": "Find the gradient of the curve y = x³ at x = 2.",
+        "options": [
+            "12",
+            "8",
+            "6",
+            "4"
+        ],
+        "answer": "12"
+    }
+]

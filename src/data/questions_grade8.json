@@ -1,0 +1,242 @@
+[
+    {
+        "id": 1,
+        "topic": "Algebra",
+        "question": "Expand and simplify: 3(2x - 1) - 2(x + 4)",
+        "options": [
+            "4x - 11",
+            "4x + 5",
+            "4x - 5",
+            "6x - 11"
+        ],
+        "answer": "4x - 11"
+    },
+    {
+        "id": 2,
+        "topic": "Graphs",
+        "question": "Find the gradient of the line passing through (1, 2) and (3, 10).",
+        "options": [
+            "4",
+            "2",
+            "8",
+            "0.25"
+        ],
+        "answer": "4"
+    },
+    {
+        "id": 3,
+        "topic": "Equations",
+        "question": "Solve: 2x/3 + 4 = 10",
+        "options": [
+            "9",
+            "6",
+            "12",
+            "21"
+        ],
+        "answer": "9"
+    },
+    {
+        "id": 4,
+        "topic": "Pythagoras",
+        "question": "In a right triangle, sides are 5cm and 12cm. Find the hypotenuse.",
+        "options": [
+            "13cm",
+            "17cm",
+            "60cm",
+            "15cm"
+        ],
+        "answer": "13cm"
+    },
+    {
+        "id": 5,
+        "topic": "Probability",
+        "question": "A fair spinner has 8 sections numbered 1-8. What is the probability of landing on a prime number?",
+        "options": [
+            "1/2",
+            "3/8",
+            "5/8",
+            "1/4"
+        ],
+        "answer": "1/2"
+    },
+    {
+        "id": 6,
+        "topic": "Standard Form",
+        "question": "Write 25,000 in standard form.",
+        "options": [
+            "2.5 x 10^4",
+            "2.5 x 10^3",
+            "0.25 x 10^5",
+            "25 x 10^3"
+        ],
+        "answer": "2.5 x 10^4"
+    },
+    {
+        "id": 7,
+        "topic": "Percentages",
+        "question": "A laptop costs $600. Its price is reduced by 15%. What is the new price?",
+        "options": [
+            "$510",
+            "$90",
+            "$540",
+            "$585"
+        ],
+        "answer": "$510"
+    },
+    {
+        "id": 8,
+        "topic": "Volume",
+        "question": "Volume of a prism with base area 20 cm² and length 15cm is:",
+        "options": [
+            "300 cm³",
+            "35 cm³",
+            "150 cm³",
+            "600 cm³"
+        ],
+        "answer": "300 cm³"
+    },
+    {
+        "id": 9,
+        "topic": "Indices",
+        "question": "Simplify: (x³)² * x^4",
+        "options": [
+            "x^10",
+            "x^9",
+            "x^24",
+            "x^7"
+        ],
+        "answer": "x^10"
+    },
+    {
+        "id": 10,
+        "topic": "Angle Geometry",
+        "question": "Find the bearing of B from A if A is North of B.",
+        "options": [
+            "180 degrees",
+            "090 degrees",
+            "000 degrees",
+            "270 degrees"
+        ],
+        "answer": "180 degrees"
+    },
+    {
+        "id": 11,
+        "topic": "Algebra",
+        "question": "Factorize fully: 5x² - 10x",
+        "options": [
+            "5x(x - 2)",
+            "5(x² - 2x)",
+            "x(5x - 10)",
+            "5x(x + 2)"
+        ],
+        "answer": "5x(x - 2)"
+    },
+    {
+        "id": 12,
+        "topic": "Circles",
+        "question": "Area of a circle with radius 7cm (take pi = 22/7) is:",
+        "options": [
+            "154 cm²",
+            "44 cm²",
+            "49 cm²",
+            "11 cm²"
+        ],
+        "answer": "154 cm²"
+    },
+    {
+        "id": 13,
+        "topic": "Proportion",
+        "question": "If y is directly proportional to x, and y=10 when x=2, find y when x=5.",
+        "options": [
+            "25",
+            "20",
+            "4",
+            "15"
+        ],
+        "answer": "25"
+    },
+    {
+        "id": 14,
+        "topic": "Inequalities",
+        "question": "Which integer satisfies: 2 < x <= 4?",
+        "options": [
+            "3 and 4",
+            "2, 3 and 4",
+            "2 and 3",
+            "Only 4"
+        ],
+        "answer": "3 and 4"
+    },
+    {
+        "id": 15,
+        "topic": "Statistics",
+        "question": "Find the range of the set: 12, 5, 8, 20, 15",
+        "options": [
+            "15",
+            "20",
+            "12",
+            "5"
+        ],
+        "answer": "15"
+    },
+    {
+        "id": 16,
+        "topic": "Simultaneous Equations",
+        "question": "Solve: x + y = 10 and x - y = 2",
+        "options": [
+            "x=6, y=4",
+            "x=5, y=5",
+            "x=7, y=3",
+            "x=8, y=6"
+        ],
+        "answer": "x=6, y=4"
+    },
+    {
+        "id": 17,
+        "topic": "Polygons",
+        "question": "Exterior angle of a regular hexagon is:",
+        "options": [
+            "60 degrees",
+            "120 degrees",
+            "30 degrees",
+            "90 degrees"
+        ],
+        "answer": "60 degrees"
+    },
+    {
+        "id": 18,
+        "topic": "Time",
+        "question": "Average speed for 120km in 1.5 hours is:",
+        "options": [
+            "80 km/h",
+            "60 km/h",
+            "90 km/h",
+            "100 km/h"
+        ],
+        "answer": "80 km/h"
+    },
+    {
+        "id": 19,
+        "topic": "Linear Graphs",
+        "question": "Where does y = 3x - 6 cross the x-axis?",
+        "options": [
+            "(2, 0)",
+            "(0, -6)",
+            "(-2, 0)",
+            "(6, 0)"
+        ],
+        "answer": "(2, 0)"
+    },
+    {
+        "id": 20,
+        "topic": "Algebra",
+        "question": "Expand (x + 5)(x - 5)",
+        "options": [
+            "x² - 25",
+            "x² + 10x + 25",
+            "x² - 10x - 25",
+            "x² + 25"
+        ],
+        "answer": "x² - 25"
+    }
+]
