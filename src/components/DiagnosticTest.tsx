@@ -61,6 +61,7 @@ export default function DiagnosticTest() {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState<Results | null>(null);
     const [timer, setTimer] = useState(0);
+    const [emailStatus, setEmailStatus] = useState<"sending" | "success" | "error" | null>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     // Start timer when test begins
@@ -194,18 +195,26 @@ export default function DiagnosticTest() {
 
     const autoSendEmail = async (currentResults: Results) => {
         try {
+            setEmailStatus("sending");
             const doc = await generatePDF(currentResults);
             if (!doc) return;
             const pdfBase64 = doc.output("datauristring").split(",")[1];
 
-            await axios.post(`${APP_CONFIG.API_BASE_URL}/api/send-report`, {
+            const response = await axios.post(`${APP_CONFIG.API_BASE_URL}/api/send-report`, {
                 email: formData.email,
                 name: formData.name,
                 pdfBase64
             });
-            console.log("Automatic report sent successfully!");
+
+            if (response.status === 200) {
+                setEmailStatus("success");
+                console.log("Automatic report sent successfully!");
+            } else {
+                setEmailStatus("error");
+            }
         } catch (error) {
             console.error("Auto-email failed:", error);
+            setEmailStatus("error");
         }
     };
 
@@ -590,6 +599,26 @@ export default function DiagnosticTest() {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {/* UI for Email Auto-sending Status */}
+                                            {emailStatus && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: -10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className={`p-4 rounded-3xl flex items-center justify-center space-x-3 border-2 ${emailStatus === 'sending' ? 'bg-indigo-50 border-indigo-100 text-indigo-600' :
+                                                            emailStatus === 'success' ? 'bg-green-50 border-green-100 text-green-600' :
+                                                                'bg-red-50 border-red-100 text-red-600'
+                                                        }`}>
+                                                    {emailStatus === 'sending' && <Loader2 className="w-5 h-5 animate-spin" />}
+                                                    {emailStatus === 'success' && <CheckCircle className="w-5 h-5" />}
+                                                    {emailStatus === 'error' && <AlertCircle className="w-5 h-5" />}
+                                                    <span className="font-bold text-sm">
+                                                        {emailStatus === 'sending' && 'Automatically emailing diagnostic report...'}
+                                                        {emailStatus === 'success' && 'Diagnostic report securely emailed to you and ImproMaths!'}
+                                                        {emailStatus === 'error' && 'Failed to email report automatically. Please download it.'}
+                                                    </span>
+                                                </motion.div>
+                                            )}
 
                                             {/* Motivational Feedback Block */}
                                             <div className="bg-gray-50/80 rounded-[2.5rem] p-8 md:p-10 border border-gray-100 space-y-6">

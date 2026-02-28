@@ -19,8 +19,8 @@ export async function POST(request: Request) {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: [email, 'impromaths@gmail.com'], // Ensuring BOTH student and impromaths get it!
-            subject: `ImproMaths SkillCheck Pro Report - ${name}`,
-            text: `Hello ${name},\n\nPlease find attached your diagnostic test report from ImproMaths.\n\nBest regards,\nImproMaths Team`,
+            subject: `ImproMaths Diagnostic Test Report - ${name}`,
+            text: `Hello ${name},\n\nThank you for completing the ImproMaths Diagnostic Test.\n\nPlease find attached your detailed diagnostic test report, which includes your score, accuracy percentage, detailed performance analysis, and areas for improvement. Review this report carefully to understand your current skill level.\n\nBest regards,\nImproMaths Team\nimpromaths@gmail.com\n`,
             attachments: [
                 {
                     filename: `ImproMaths_Report_${name.replace(/\s+/g, '_')}.pdf`,

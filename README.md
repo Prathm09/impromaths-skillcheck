@@ -37,4 +37,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Automatic Email Configuration (SMTP)
+
+The application automatically emails a generated PDF diagnostic report upon test submission to both the student and the administrator (`impromaths@gmail.com`). This requires valid SMTP/email credentials to be configured.
+
+### Setting up Email Credentials
+1. Use an App Password for Gmail (Do **NOT** use your standard Google password). 
+2. Go to your Google Account Settings -> Security -> 2-Step Verification -> App Passwords.
+3. Generate a new App Password for "Node.js App" (or similar).
+4. In the root of your project, locate or create a `.env` (and `.env.local` if using Next.js dev server). Provide the following variables:
+```
+EMAIL_USER=your_gmail_address@gmail.com
+EMAIL_PASS=your_16_character_app_password
+```
+5. Ensure these environment variables are safely managed and never committed to public repositories (e.g. they should be included in `.gitignore` or inputted directly into Vercel/Render Secret Environment Variables).
+
 Last update: 02/19/2026 16:24:56
