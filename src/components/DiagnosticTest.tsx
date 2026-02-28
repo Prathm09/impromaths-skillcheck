@@ -185,7 +185,7 @@ export default function DiagnosticTest() {
             setStep(3);
             setLoading(false);
 
-            // AUTO-REPORT: Automatically send PDF to student via Email & Ma'am via Email and WhatsApp Graph API
+            // AUTO-REPORT: Automatically send PDF to student and Ma'am via Email
             autoSendEmail(newResults);
         }, 1500); // Artificial delay for "loading animation"
     };
@@ -200,9 +200,6 @@ export default function DiagnosticTest() {
             const response = await axios.post(`${APP_CONFIG.API_BASE_URL}/api/send-report`, {
                 email: formData.email,
                 name: formData.name,
-                grade: formData.grade,
-                score: currentResults.score,
-                category: currentResults.category,
                 pdfBase64
             });
 
@@ -613,9 +610,9 @@ export default function DiagnosticTest() {
                                                     {emailStatus === 'success' && <CheckCircle className="w-5 h-5" />}
                                                     {emailStatus === 'error' && <AlertCircle className="w-5 h-5" />}
                                                     <span className="font-bold text-sm">
-                                                        {emailStatus === 'sending' && 'Automatically sending diagnostic report via Email and WhatsApp...'}
-                                                        {emailStatus === 'success' && 'Diagnostic report securely emailed and sent to ImproMaths via WhatsApp!'}
-                                                        {emailStatus === 'error' && 'Failed to automate report delivery. Please download it.'}
+                                                        {emailStatus === 'sending' && 'Automatically emailing diagnostic report...'}
+                                                        {emailStatus === 'success' && 'Diagnostic report securely emailed to you and ImproMaths!'}
+                                                        {emailStatus === 'error' && 'Failed to email report automatically. Please download it.'}
                                                     </span>
                                                 </motion.div>
                                             )}

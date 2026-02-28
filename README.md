@@ -53,19 +53,4 @@ EMAIL_PASS=your_16_character_app_password
 ```
 5. Ensure these environment variables are safely managed and never committed to public repositories (e.g. they should be included in `.gitignore` or inputted directly into Vercel/Render Secret Environment Variables).
 
-## Automatic WhatsApp Report Delivery (Meta Cloud API)
-
-The application simultaneously sends the generated PDF and a short analytical text summary to the preconfigured administration number (`+65 9826 2401`) via WhatsApp.
-
-### Setting up WhatsApp Business API Credentials
-1. Go to the [Meta for Developers Portal](https://developers.facebook.com/) and Create an App (Type: Business).
-2. Set up the **WhatsApp Product** inside your app.
-3. It will give you a temporary (or permanent) **Access Token** and a **Phone Number ID**.
-4. In the root of your project, locate or create a `.env` (and `.env.local` if using Next.js dev server) and provide these variables so the server can authorize the message pushing correctly:
-```
-WHATSAPP_ACCESS_TOKEN=your_meta_access_token
-WHATSAPP_PHONE_NODE_ID=your_phone_number_id
-```
-*Note: Make sure to verify the destination phone number (`+6598262401`) on your Meta Dev Dashboard if you are using a test number, or go live for arbitrary delivery.*
-
 Last update: 02/28/2026 19:55:56
