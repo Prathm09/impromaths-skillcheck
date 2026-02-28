@@ -5,8 +5,8 @@ import questionsGrade8 from '@/data/questions_grade8.json';
 import questionsGrade9 from '@/data/questions_grade9.json';
 import questionsGrade10 from '@/data/questions_grade10.json';
 
-export async function GET(request: Request, { params }: { params: { grade: string } }) {
-    const { grade } = params;
+export async function GET(request: Request, context: { params: Promise<{ grade: string }> }) {
+    const { grade } = await context.params;
     let qBank: any[] = [];
 
     if (grade === '6') qBank = questionsGrade6;
