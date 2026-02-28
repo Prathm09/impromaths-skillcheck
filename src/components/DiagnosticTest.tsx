@@ -606,8 +606,8 @@ export default function DiagnosticTest() {
                                                     initial={{ opacity: 0, y: -10 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     className={`p-4 rounded-3xl flex items-center justify-center space-x-3 border-2 ${emailStatus === 'sending' ? 'bg-indigo-50 border-indigo-100 text-indigo-600' :
-                                                            emailStatus === 'success' ? 'bg-green-50 border-green-100 text-green-600' :
-                                                                'bg-red-50 border-red-100 text-red-600'
+                                                        emailStatus === 'success' ? 'bg-green-50 border-green-100 text-green-600' :
+                                                            'bg-red-50 border-red-100 text-red-600'
                                                         }`}>
                                                     {emailStatus === 'sending' && <Loader2 className="w-5 h-5 animate-spin" />}
                                                     {emailStatus === 'success' && <CheckCircle className="w-5 h-5" />}
@@ -659,31 +659,31 @@ export default function DiagnosticTest() {
                                                 </div>
                                             </div>
 
-                                            {/* Action Buttons Grid (3 Columns) */}
+                                            {/* Action Buttons Grid */}
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                 <button
                                                     onClick={handleDownload}
-                                                    className="flex items-center justify-center space-x-3 bg-white border-2 border-cyan-500 text-cyan-600 font-black py-5 rounded-3xl hover:bg-cyan-50 transition-all active:scale-95 shadow-lg shadow-cyan-50/50"
+                                                    className="flex flex-col items-center justify-center space-y-2 bg-white border-2 border-cyan-500 text-cyan-600 font-black py-4 px-2 rounded-3xl hover:bg-cyan-50 transition-all active:scale-95 shadow-lg shadow-cyan-50/50 text-center leading-tight"
                                                 >
-                                                    <Download size={22} />
-                                                    <span>Download PDF</span>
+                                                    <Download size={24} />
+                                                    <span className="text-sm">Download PDF</span>
                                                 </button>
 
                                                 <button
                                                     onClick={() => handleWhatsAppShare('student')}
                                                     disabled={!formData.phone}
-                                                    className="flex items-center justify-center space-x-3 bg-[#25D366] text-white font-black py-5 rounded-3xl hover:bg-[#22c35e] transition-all active:scale-95 shadow-lg shadow-green-100 disabled:opacity-30"
+                                                    className="flex flex-col items-center justify-center space-y-2 bg-[#25D366] text-white font-black py-4 px-2 rounded-3xl hover:bg-[#22c35e] transition-all active:scale-95 shadow-lg shadow-green-100 disabled:opacity-30 text-center leading-tight"
                                                 >
-                                                    <MessageCircle size={22} />
-                                                    <span>Share to My WhatsApp</span>
+                                                    <MessageCircle size={24} />
+                                                    <span className="text-sm">Share to My WhatsApp</span>
                                                 </button>
 
                                                 <button
                                                     onClick={() => handleSharePDF()}
-                                                    className="flex items-center justify-center space-x-3 bg-[#00BCD4] text-white font-black py-5 rounded-3xl hover:bg-[#00ACC1] transition-all active:scale-95 shadow-lg shadow-cyan-100"
+                                                    className="flex flex-col items-center justify-center space-y-2 bg-[#00BCD4] text-white font-black py-4 px-2 rounded-3xl hover:bg-[#00ACC1] transition-all active:scale-95 shadow-lg shadow-cyan-100 text-center leading-tight"
                                                 >
-                                                    <MessageCircle size={22} />
-                                                    <span>Share PDF to Ma'am</span>
+                                                    <MessageCircle size={24} />
+                                                    <span className="text-sm">Share PDF to Ma'am</span>
                                                 </button>
                                             </div>
 
